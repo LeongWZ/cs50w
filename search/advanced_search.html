@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Advanced search</title>
+        <link rel="stylesheet" href="advanced_search.css">
+    </head>
+    <body>
+        <div class="navBar">
+            <a class="navItem" href="index.html">Google</a>
+            <div class="row">
+                <a class="navLink" href="index.html">Google Search</a>
+                <a class="navLink" href="image_search.html">Image Search</a>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 style="color: red; font-family: 'Arial', sans-serif; padding-left: 20px;">
+                Advanced Search
+            </h2>
+        </div>
+
+        <form action="https://www.google.com/search">
+            <div class="section">
+                <div class="formGrid">
+                    <div class="grid-header">Find pages with...</div>
+                    <div class="grid-header"></div>
+                    <div class="grid-header grid-item-description">
+                        To do this in the search box.
+                    </div>
+                    
+                    <div class="grid-item">all these words:</div>
+                    <input class="grid-item" type="text" name="as_q">
+                    <div class="grid-item-description">
+                        Type the important words:
+                        <span style="font-weight: bold;">tri-colour rat terrier</span>
+                    </div>
+    
+                    <div class="grid-item">this exact word or phrase:</div>
+                    <input class="grid-item" type="text" name="as_epq">
+                    <div class="grid-item-description">
+                        Put exact words in quotes:
+                        <span style="font-weight: bold;">"rat terrier"</span>
+                    </div>
+    
+                    <div class="grid-item">any of these words:</div>
+                    <input class="grid-item" type="text" name="as_oq">
+                    <div class="grid-item-description">
+                        Type OR between all the words you want: miniature OR standard
+                    </div>
+    
+                    <div class="grid-item">none of these words:</div>
+                    <input class="grid-item" type="text" name="as_eq">
+                    <div class="grid-item-description">
+                        Put a minus sign just before words that you don't want: -rodent, -"Jack Russell"
+                    </div>
+    
+                    <div class="grid-item">numbers ranging from:</div>
+                    <div class="grid-item" style="padding: 0;">
+                        <div class="numberRange">
+                            <input type="text" name="as_nlo">
+                            <div>to</div>
+                            <input type="text" name="as_nhi">
+                        </div>
+                    </div>
+                    <div class="grid-item-description">
+                        Put two numbers and add a unit of measurement: 10kg 35kg, £300 £500, 2010 2011
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="formGrid">
+                    <div class="grid-header">Then narrow your results by...</div>
+                    <div class="grid-header"></div>
+                    <div class="grid-header grid-item-description"></div>
+    
+                    <div class="grid-item">site or domain:</div>
+                    <input class="grid-item" type="text" name="as_sitesearch">
+                    <div class="grid-item-description">
+                        Search one site (like <span style="font-weight: bold;">wikipedia.org</span> )
+                        or limit your results to a domain like
+                        <span style="font-weight: bold;">.edu</span>,
+                        <span style="font-weight: bold;">.org</span> or
+                        <span style="font-weight: bold;">.gov</span>
+                    </div>
+
+                    <div class="grid-item">file type:</div>
+                    <input class="grid-item" name="as_filetype" list="filetypes">
+                    <datalist id="filetypes">
+                        <option value="pdf">
+                        <option value="ps">
+                        <option value="dwf">
+                        <option value="kml">
+                        <option value="kmz">
+                        <option value="xls">
+                        <option value="ppt">
+                        <option value="doc">
+                        <option value="rtf">
+                        <option value="swf">
+                    </datalist>
+                    <div class="grid-item-description">
+                        Find pages in the format that you prefer.
+                    </div>
+                    
+                    <div class="grid-item"></div>
+                    <div class="grid-item" style="padding: 0;">
+                        <div style="display: flex; justify-content: flex-end">
+                            <input class="submitInput" type="submit" value="Advanced Search">
+                        </div>
+                    </div>
+                    <div class="grid-item"></div>
+                </div>
+            </div>
+        </form>
+
+        <div class="section">
+            <div class="column" style="padding: 20px;">
+                You can also...
+                <a href="https://support.google.com/websearch?p=adv_pages_similar&hl=en">
+                    Find pages that are similar to a URL
+                </a>
+                <a href="https://support.google.com/websearch?p=adv_pages_visited&hl=en">
+                    Search pages that you've visited
+                </a>
+                <a href="https://support.google.com/websearch?p=adv_operators&hl=en">
+                    Use operators in the search box
+                </a>
+                <a href="https://www.google.com/preferences?hl=en-SG">
+                    Customise your search settings
+                </a>
+            </div>
+        </div>
+    </body>
+</html>

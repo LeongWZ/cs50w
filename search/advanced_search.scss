@@ -1,0 +1,132 @@
+body {
+    margin: 0px;
+}
+
+form {
+    flex-grow: 1;
+}
+
+a {
+    font-family: 'Arial', sans-serif;
+}
+
+.flexContainer {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.navBar {
+    @extend .flexContainer;
+    justify-content: space-between;
+    padding: 14px 12px 14px 12px;
+    border-bottom: 1px solid black;
+    vertical-align: middle;
+
+    .navItem {
+        text-decoration: none;
+        color: black;
+        font-family: 'Helvetica', sans-serif;
+        font-size: 24px;
+    }
+
+    .navLink {
+        align-self: center;
+    }
+}
+
+.section {
+    @extend .flexContainer;
+    border-bottom: 1px solid black;
+    padding: 10px 20px 10px 20px;
+}
+
+.grid {
+    @extend .flexContainer;
+    display: grid;
+    grid-column-gap: 20px;
+    grid-row-gap: 10px;
+
+    .grid-item {
+        padding: 6px;
+        font-family: "Arial", sans-serif;
+    }
+}
+
+.column {
+    @extend .grid;
+    grid-auto-flow: row;
+}
+
+.row {
+    @extend .grid;
+    grid-auto-flow: column;
+}
+
+.formGrid {
+    @extend .grid;
+    grid-template-columns: 200px 400px auto;
+    padding: 20px;
+    justify-content: space-between;
+
+    .grid-item {
+        font-size: 14px;
+    }
+    
+    .grid-header {
+        @extend .grid-item;
+        font-weight: bold;
+        font-size: 16px;
+    }
+
+    .grid-item-description {
+        @extend .grid-item;
+    }
+
+    input[type="text"] {
+        height: 20px;
+    }
+
+    @media (max-width: 599px) {
+        grid-template-columns: auto 200px;
+
+        .grid-item-description {
+            display: none;
+        }
+    }
+}
+
+.numberRange {
+    display: flex;
+    justify-content: space-between;
+
+    input {
+        display: flex;
+        min-width: 0;
+        height: 26px;
+    }
+
+    div {
+        display: flex;
+        padding-left: 4px;
+        padding-right: 4px;
+    }
+    
+}
+
+.submitInput {
+    @extend .flexContainer;
+    margin-top: 20px;
+    padding: 8px 16px;
+    font-family: 'Arial', 'Helvetica', sans-serif;
+    font-size: 14px;
+    color: white;
+    background-color: #3079ed;
+    border: 1px solid black;
+    border-radius: 5px;
+    user-select: none;
+}
+
+.submitInput:hover {
+    background-color: #6b9ef1;
+    border: 1px solid #3079ed;
+}

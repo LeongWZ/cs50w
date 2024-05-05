@@ -1,0 +1,78 @@
+a {
+  font-family: "Arial", sans-serif;
+}
+
+.flexContainer, .directoryContainer, .centerContainer, .searchContainer .searchInput, .searchContainer .logo, .searchContainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.centerContainer, .searchContainer .searchInput, .searchContainer .logo, .searchContainer {
+  justify-content: center;
+  margin: auto;
+}
+
+.searchContainer {
+  margin-top: 30px;
+}
+@media (min-width: 600px) {
+  .searchContainer .searchInput {
+    width: 50%;
+  }
+}
+@media (max-width: 599px) {
+  .searchContainer .searchInput {
+    width: 80%;
+  }
+}
+.searchContainer .logo {
+  font-family: "Helvetica", sans-serif;
+  font-size: 80px;
+  margin: 20px;
+}
+.searchContainer .logo .sublabel {
+  font-family: "Arial", sans-serif;
+  font-size: 20px;
+  align-self: flex-end;
+}
+.searchContainer form {
+  flex-grow: 1;
+}
+.searchContainer .searchInput {
+  font-family: "Arial", sans-serif;
+  font-size: 20px;
+  padding: 10px 10px 10px 40px;
+  border-radius: 25px;
+  border: 1px solid black;
+  background-image: url("./search-icon.svg");
+  background-repeat: no-repeat;
+  background-size: 25px;
+  background-position: left 10px center;
+}
+.searchContainer .submitInput {
+  margin: 20px 2px 20px 2px;
+  padding: 8px 16px;
+  font-family: "Arial", "Helvetica", sans-serif;
+  font-size: 14px;
+}
+
+.grid, .row {
+  display: grid;
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+}
+
+.row {
+  grid-auto-flow: column;
+}
+
+.directoryContainer {
+  padding: 10px;
+}
+.directoryContainer .row {
+  float: right;
+  margin-left: auto;
+  grid-auto-flow: column;
+}
+
+/*# sourceMappingURL=style.css.map */

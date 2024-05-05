@@ -1,0 +1,113 @@
+body {
+  margin: 0px;
+}
+
+form {
+  flex-grow: 1;
+}
+
+a {
+  font-family: "Arial", sans-serif;
+}
+
+.flexContainer, .submitInput, .grid, .formGrid, .row, .column, .section, .navBar {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.navBar {
+  justify-content: space-between;
+  padding: 14px 12px 14px 12px;
+  border-bottom: 1px solid black;
+  vertical-align: middle;
+}
+.navBar .navItem {
+  text-decoration: none;
+  color: black;
+  font-family: "Helvetica", sans-serif;
+  font-size: 24px;
+}
+.navBar .navLink {
+  align-self: center;
+}
+
+.section {
+  border-bottom: 1px solid black;
+  padding: 10px 20px 10px 20px;
+}
+
+.grid, .formGrid, .row, .column {
+  display: grid;
+  grid-column-gap: 20px;
+  grid-row-gap: 10px;
+}
+.grid .grid-item, .formGrid .grid-item, .formGrid .grid-item-description, .formGrid .grid-header, .row .grid-item, .column .grid-item {
+  padding: 6px;
+  font-family: "Arial", sans-serif;
+}
+
+.column {
+  grid-auto-flow: row;
+}
+
+.row {
+  grid-auto-flow: column;
+}
+
+.formGrid {
+  grid-template-columns: 200px 400px auto;
+  padding: 20px;
+  justify-content: space-between;
+}
+.formGrid .grid-item, .formGrid .grid-item-description, .formGrid .grid-header {
+  font-size: 14px;
+}
+.formGrid .grid-header {
+  font-weight: bold;
+  font-size: 16px;
+}
+.formGrid input[type=text] {
+  height: 20px;
+}
+@media (max-width: 599px) {
+  .formGrid {
+    grid-template-columns: auto 200px;
+  }
+  .formGrid .grid-item-description {
+    display: none;
+  }
+}
+
+.numberRange {
+  display: flex;
+  justify-content: space-between;
+}
+.numberRange input {
+  display: flex;
+  min-width: 0;
+  height: 26px;
+}
+.numberRange div {
+  display: flex;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+.submitInput {
+  margin-top: 20px;
+  padding: 8px 16px;
+  font-family: "Arial", "Helvetica", sans-serif;
+  font-size: 14px;
+  color: white;
+  background-color: #3079ed;
+  border: 1px solid black;
+  border-radius: 5px;
+  user-select: none;
+}
+
+.submitInput:hover {
+  background-color: #6b9ef1;
+  border: 1px solid #3079ed;
+}
+
+/*# sourceMappingURL=advanced_search.css.map */
