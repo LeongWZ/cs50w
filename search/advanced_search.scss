@@ -35,13 +35,11 @@ a {
 }
 
 .section {
-    @extend .flexContainer;
     border-bottom: 1px solid black;
     padding: 10px 20px 10px 20px;
 }
 
 .grid {
-    @extend .flexContainer;
     display: grid;
     grid-column-gap: 20px;
     grid-row-gap: 10px;
@@ -64,9 +62,8 @@ a {
 
 .formGrid {
     @extend .grid;
-    grid-template-columns: 200px 400px auto;
+    grid-template-columns: 1fr 2fr 2fr;
     padding: 20px;
-    justify-content: space-between;
 
     .grid-item {
         font-size: 14px;
@@ -87,7 +84,7 @@ a {
     }
 
     @media (max-width: 599px) {
-        grid-template-columns: auto 200px;
+        grid-template-columns: 1fr 2fr;
 
         .grid-item-description {
             display: none;
@@ -96,21 +93,17 @@ a {
 }
 
 .numberRange {
-    display: flex;
-    justify-content: space-between;
+    @extend .row;
 
     input {
-        display: flex;
+        @extend .grid-item;
         min-width: 0;
-        height: 26px;
     }
 
     div {
-        display: flex;
-        padding-left: 4px;
-        padding-right: 4px;
+        @extend .grid-item;
+        text-align: center;
     }
-    
 }
 
 .submitInput {

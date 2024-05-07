@@ -10,7 +10,7 @@ a {
   font-family: "Arial", sans-serif;
 }
 
-.flexContainer, .submitInput, .grid, .formGrid, .row, .column, .section, .navBar {
+.flexContainer, .submitInput, .navBar {
   display: flex;
   flex-wrap: wrap;
 }
@@ -36,12 +36,12 @@ a {
   padding: 10px 20px 10px 20px;
 }
 
-.grid, .formGrid, .row, .column {
+.grid, .formGrid, .row, .numberRange, .column {
   display: grid;
   grid-column-gap: 20px;
   grid-row-gap: 10px;
 }
-.grid .grid-item, .formGrid .grid-item, .formGrid .grid-item-description, .formGrid .grid-header, .row .grid-item, .column .grid-item {
+.grid .grid-item, .formGrid .grid-item, .formGrid .grid-item-description, .formGrid .grid-header, .row .grid-item, .numberRange .grid-item, .numberRange div, .numberRange input, .column .grid-item {
   padding: 6px;
   font-family: "Arial", sans-serif;
 }
@@ -50,16 +50,15 @@ a {
   grid-auto-flow: row;
 }
 
-.row {
+.row, .numberRange {
   grid-auto-flow: column;
 }
 
 .formGrid {
-  grid-template-columns: 200px 400px auto;
+  grid-template-columns: 1fr 2fr 2fr;
   padding: 20px;
-  justify-content: space-between;
 }
-.formGrid .grid-item, .formGrid .grid-item-description, .formGrid .grid-header {
+.formGrid .grid-item, .formGrid .numberRange div, .numberRange .formGrid div, .formGrid .numberRange input, .numberRange .formGrid input, .formGrid .grid-item-description, .formGrid .grid-header {
   font-size: 14px;
 }
 .formGrid .grid-header {
@@ -71,26 +70,18 @@ a {
 }
 @media (max-width: 599px) {
   .formGrid {
-    grid-template-columns: auto 200px;
+    grid-template-columns: 1fr 2fr;
   }
   .formGrid .grid-item-description {
     display: none;
   }
 }
 
-.numberRange {
-  display: flex;
-  justify-content: space-between;
-}
 .numberRange input {
-  display: flex;
   min-width: 0;
-  height: 26px;
 }
 .numberRange div {
-  display: flex;
-  padding-left: 4px;
-  padding-right: 4px;
+  text-align: center;
 }
 
 .submitInput {
