@@ -1,0 +1,32 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Create
+{% endblock %}
+
+{% block body %}
+    <h1>Create page</h1>
+    <form action="{% url 'create' %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input class="form-control" type="text" name="title" id="title"
+                value="{% if title %}{{ title }}{% endif %}" required>
+            </input>
+            <small class="form-text text-muted" id="titleHelp">*Required</small>
+        </div>
+        <div class="form-group">
+            <label for="content">Content</label>
+            <textarea class="form-control" type="" name="content"
+                id="content" rows="10" required>{% if content %}{{ content }}{% endif %}
+            </textarea>
+            <small class="form-text text-muted" id="titleHelp">*Required</small>
+        </div>
+        {% if error_message %}
+            <div class="alert alert-danger" role="alert">
+                {{ error_message }}
+            </div>
+        {% endif %}
+        <input class="btn btn-primary" type="submit" value="Submit">
+    </form>
+{% endblock %}

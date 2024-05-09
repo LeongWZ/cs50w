@@ -1,0 +1,32 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Edit
+{% endblock %}
+
+{% block body %}
+    <h1>Edit page</h1>
+    <form action="{% url 'edit' title=title %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input class="form-control" type="text" name="title" id="title"
+                value="{{ title }}" readonly>
+            </input>
+            <small class="form-text text-muted" id="titleHelp">Title cannot be edited</small>
+        </div>
+        <div class="form-group">
+            <label for="content">Content</label>
+            <textarea class="form-control" type="" name="content"
+                id="content" rows="10" required>{{ content }}
+            </textarea>
+            <small class="form-text text-muted" id="titleHelp">*Required</small>
+        </div>
+        {% if error_message %}
+            <div class="alert alert-danger" role="alert">
+                {{ error_message }}
+            </div>
+        {% endif %}
+        <input class="btn btn-primary" type="submit" value="Submit">
+    </form>
+{% endblock %}
