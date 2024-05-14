@@ -1,0 +1,37 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block body %}
+    <h2>{{ title }}</h2>
+    {% for listing, max_bid in listing_max_bid_pairs %}
+        <div class="listing">
+            <div class="row">
+                <div class="col-4 my-auto text-center">
+                    <img  src="{{ listing.image_url }}" class="img-fluid" alt="No image">
+                </div>
+                <div class="col-8 d-flex flex-column">
+                    <a class="stretched-link"
+                        href="{% url 'listing' listing_id=listing.id %}"
+                        >
+                        <h3 class="font-weight-bold">{{ listing.title }}</h3>
+                    </a>
+                    <div>
+                        <span class="font-weight-bold">Price: </span>
+                        {% if max_bid %}
+                            ${{ max_bid.amount }}
+                        {% else %}
+                            ${{ listing.starting_bid }}
+                        {% endif %}
+                    </div>
+                    <p>{{ listing.description }}</p>
+                    <div class="mt-auto">Created at {{ listing.created_at }}</div>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        No active listings
+    {% endfor %}
+{% endblock %}

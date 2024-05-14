@@ -1,0 +1,62 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %}
+    Create listing
+{% endblock %}
+
+{% block body %}
+    <h2>Create listing</h2>
+    <form action="{% url 'create_listing' %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="createListingTitle">Title</label>
+            <input type="text" class="form-control" name="title" id="createListingTitle"
+                placeholder="Title" maxlength="64" required>
+            <small class="form-text text-muted" id="createListingTitleHelp">
+                *Required - Up to 64 characters
+            </small>
+        </div>
+        <div class="form-group">
+            <label for="createListingDescription">Description</label>
+            <textarea class="form-control" name="description" id="createListingDescription"
+                placeholder="Description" maxlength="1000" rows="5" required></textarea>
+            <small class="form-text text-muted" id="createListingDescriptionHelp">
+                *Required - Up to 1000 characters
+            </small>
+        </div>
+        <div class="form-group">
+            <label for="createListingStartingBid">Starting Bid (in $)</label>
+            <input type="number" class="form-control" name="starting_bid" id="createListingStartingBid"
+                placeholder="0" min="0" step="0.01">
+            <small class="form-text text-muted" id="createListingStartingBidHelp">
+                *Required
+            </small>
+        </div>
+        <div class="form-group">
+            <label for="createListingImageUrl">Image URL</label>
+            <input type="text" class="form-control" name="image_url" id="createListingImageUrl"
+                placeholder="Image URL">
+            <small class="form-text text-muted" id="createListingImageUrlYHelp">
+                Optional
+            </small>
+        </div>
+
+        <div class="form-group">
+            <label for="createListingCategoryName">Category</label>
+            <select class="form-control" name="category_name" id="createListingCategoryName">
+                <option label="None" value="">
+                {% for category in categories %}
+                    <option label="{{ category.name }}" value="{{ category.name }}">
+                {% endfor %}
+            </select>
+        </div>
+
+        {% if message %}
+            <div class="alert alert-danger" role="alert">
+                <h6>Error</h6>
+                {{ message }}
+            </div>
+        {% endif %}
+        <input type="submit" class="btn btn-primary" value="Submit">
+    </form>
+{% endblock %}
