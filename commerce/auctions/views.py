@@ -4,6 +4,7 @@ from django.db import IntegrityError
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from django.db.models import Max
 
 
 from .models import User, Category, Listing, Bid, Comment
@@ -16,10 +17,15 @@ def listing_exists(listing_id):
 def category_exists(category_id):
     return Category.objects.filter(pk=category_id).exists()
 
+def find_max_bid(listing):
+    max_bid_amount = listing.bids.aggregate(Max('amount'))['amount__max']
+    return Bid.objects.filter(listing=listing, amount=max_bid_amount).first()
+
+
 def index(request):
     active_listings = Listing.objects.filter(is_closed=False)
     listing_max_bid_pairs = map(
-        lambda listing: (listing, listing.bids.order_by("-amount").first()),
+        lambda listing: (listing, find_max_bid(listing)),
         active_listings
         )
     return render(request, "auctions/index.html", {
@@ -122,57 +128,33 @@ def listing(request, listing_id):
         return error(request, "Listing does not exist")
     
     listing = Listing.objects.get(pk=listing_id)
-    max_bid = listing.bids.order_by("-amount").first()
+    max_bid = find_max_bid(listing)
     is_on_watchlist = request.user.is_authenticated and listing.watched_by.filter(pk=request.user.id).exists()
-    
+    message = ""
+
     if request.method == "POST":
         if not request.user.is_authenticated:
-            return login_view(request)
+            return HttpResponseRedirect("login")
         
         form = SubmitBidForm(request.POST)
 
-        if not form.is_valid():
-            return render(request, "auctions/listing.html", {
-                "listing": listing,
-                "is_on_watchlist": is_on_watchlist,
-                "max_bid": max_bid,
-                "bid_count": listing.bids.count(),
-                "comments": listing.comments.all(),
-                "message": "Bid amount is required.",
-            })
-        
-        bid_amount = form.cleaned_data["bid"]
+        if form.is_valid():
+            bid_amount = form.cleaned_data["bid"]
 
-        if max_bid and bid_amount <= max_bid.amount:
-            return render(request, "auctions/listing.html", {
-                "listing": listing,
-                "is_on_watchlist": is_on_watchlist,
-                "max_bid": max_bid,
-                "bid_count": listing.bids.count(),
-                "comments": listing.comments.all(),
-                "message": "Bid amount must be greater than bidding price."
-            })
-        
-        if not max_bid and bid_amount < listing.starting_bid:
-            return render(request, "auctions/listing.html", {
-                "listing": listing,
-                "is_on_watchlist": is_on_watchlist,
-                "max_bid": max_bid,
-                "bid_count": listing.bids.count(),
-                "comments": listing.comments.all(),
-                "message": "Bid amount must be at least the starting bid."
-            })
-        
-        bid = Bid(user_id=request.user.id, listing_id=listing_id, amount=bid_amount)
-        bid.save()
-
-        return render(request, "auctions/listing.html", {
-            "listing": listing,
-            "is_on_watchlist": is_on_watchlist,
-            "max_bid": bid,
-            "bid_count": listing.bids.count(),
-            "comments": listing.comments.all(),
-        })
+            if max_bid and bid_amount <= max_bid.amount:
+                message = "Bid amount must be greater than bidding price."
+            elif not max_bid and bid_amount < listing.starting_bid:
+                message = "Bid amount must be at least the starting bid."
+            else:
+                bid = Bid(user_id=request.user.id, listing_id=listing_id, amount=bid_amount)
+                bid.save()
+                return render(request, "auctions/listing.html", {
+                    "listing": listing,
+                    "is_on_watchlist": is_on_watchlist,
+                    "max_bid": bid,
+                    "bid_count": listing.bids.count(),
+                    "comments": listing.comments.all(),
+                })
             
     return render(request, "auctions/listing.html", {
         "listing": listing,
@@ -180,6 +162,7 @@ def listing(request, listing_id):
         "max_bid": max_bid,
         "bid_count": listing.bids.count(),
         "comments": listing.comments.all(),
+        "message": message,
     })
 
 @login_required
@@ -193,7 +176,6 @@ def close_listing(request, listing_id):
         listing.is_closed = True
         listing.save()
         return HttpResponseRedirect(reverse("listing", kwargs={"listing_id": listing.id}))
-    
 
 @login_required
 def listing_comment(request, listing_id):
@@ -206,7 +188,7 @@ def listing_comment(request, listing_id):
         form = CreateCommentForm(request.POST)
 
         if form.is_valid():
-            comment = Comment(user_id=request.user.id, listing_id = listing.id, content=form.cleaned_data["comment"])
+            comment = Comment(user_id=request.user.id, listing_id=listing.id, content=form.cleaned_data["comment"])
             comment.save()
         
         return HttpResponseRedirect(reverse("listing", kwargs={"listing_id": listing.id}))
@@ -216,7 +198,7 @@ def watchlist(request):
     watchlist = request.user.watchlist.all()
 
     listing_max_bid_pairs = map(
-        lambda listing: (listing, listing.bids.order_by("-amount").first()),
+        lambda listing: (listing, find_max_bid(listing)),
         watchlist
         )
     
@@ -248,7 +230,7 @@ def view_by_category(request, category_id):
     listings = category.listings.all()
 
     listing_max_bid_pairs = map(
-        lambda listing: (listing, listing.bids.order_by("-amount").first()),
+        lambda listing: (listing, find_max_bid(listing)),
         listings
         )
     
