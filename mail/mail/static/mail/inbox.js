@@ -100,15 +100,7 @@ function send_mail() {
   })
   .catch(error => {
     document.querySelectorAll("#error-div").forEach(element => element.remove());
-
-    const error_div = document.createElement("div");
-    error_div.id = "error-div";
-    error_div.innerHTML = `
-      <div class="alert alert-danger" id="error-alert">
-        Error: ${error.message}
-      </div>
-    `;
-    document.querySelector("#compose-view").append(error_div);
+    document.querySelector("#compose-view").append(create_error_div(error.message));
   });
   
   // stop form from submitting
@@ -214,4 +206,15 @@ function create_email_card(email, belongs_to_sent_view) {
   email_card.append(card_footer);
   
   return email_card;
+}
+
+function create_error_div(error_message) {
+  const error_div = document.createElement("div");
+  error_div.id = "error-div";
+  error_div.innerHTML = `
+    <div class="alert alert-danger" id="error-alert">
+      Error: ${error_message}
+    </div>
+  `;
+  return error_div;
 }
