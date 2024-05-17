@@ -4,18 +4,6 @@ textarea {
 
 #error-div {
     margin-top: 1.5rem;
-
-    #error-alert {
-        padding: .75rem 1.25rem;
-        margin: 1rem;
-    }
-}
-
-#error-div[display="none"] {
-    #error-alert {
-        padding: 0;
-        margin: 0;
-    }
 }
 
 .email-preview-card[data-read=true] > .card-body {
