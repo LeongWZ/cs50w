@@ -1,0 +1,12 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+<div id="root"></div>
+
+<script data-plugins="transform-modules-umd" type="text/babel" src="{% static 'network/all/App.jsx' %}"></script>
+<script data-plugins="transform-modules-umd" type="text/babel" src="{% static 'network/all/index.js' %}"></script>
+
+
+{% endblock %}

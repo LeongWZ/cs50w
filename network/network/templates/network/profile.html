@@ -1,0 +1,11 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+<div id="root"></div>
+
+<script data-plugins="transform-modules-umd" type="text/babel" src="{% static 'network/profile/App.jsx' %}"></script>
+<script data-plugins="transform-modules-umd" type="text/babel" src="{% static 'network/profile/index.js' %}"></script>
+
+{% endblock %}
